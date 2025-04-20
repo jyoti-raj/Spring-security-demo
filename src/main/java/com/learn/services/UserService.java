@@ -13,8 +13,8 @@ public class UserService {
 	List<User> userList = new ArrayList<>();
 	
 	public UserService() {
-		userList.add(new User("abc", "abc", "abc@gmail.com", ""));
-		userList.add(new User("xyz", "xyz", "abcxyz@gmail.com", ""));
+		userList.add(new User("abc", "abc", "abc@gmail.com"));
+		userList.add(new User("xyz", "xyz", "abcxyz@gmail.com"));
 	}
 	
 	public List<User> getAllUser(){

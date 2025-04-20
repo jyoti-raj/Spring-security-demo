@@ -26,9 +26,18 @@ public class Application implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user1 = new User("Osworld", bCryptPasswordEncoder.encode("micy345678"), "osworld@gmail.com", "ROLE_ADMIN");
+		User user1 = new User();
+		user1.setEmail("osworld@gmail.com");
+		user1.setUserName("Osworld");
+		user1.setPassword(bCryptPasswordEncoder.encode("micy345678"));
+		user1.setRole("ADMIN");
 		userRepository.save(user1);
-		User user2 = new User("Henry", bCryptPasswordEncoder.encode("fishIceCream"), "henry@gmail.com", "ROLE_USER");
+		
+		User user2 = new User();
+		user2.setEmail("henry@gmail.com");
+		user2.setUserName("Henry");
+		user2.setPassword(bCryptPasswordEncoder.encode("fishIceCream"));
+		user2.setRole("USER");
 		userRepository.save(user2);
 		
 	}

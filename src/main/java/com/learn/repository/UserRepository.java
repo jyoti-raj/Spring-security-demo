@@ -8,6 +8,5 @@ import com.learn.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
 	
-	
 
 }

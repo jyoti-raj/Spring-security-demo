@@ -5,6 +5,7 @@ import java.util.Base64.Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,6 +31,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		
+		// Basic form
 //		http
 //		.csrf(csrf -> csrf.disable())
 //		.authorizeHttpRequests(authorize -> authorize
@@ -39,6 +41,7 @@ public class SecurityConfig {
 //				.authenticated())
 //		.httpBasic(Customizer.withDefaults());
 		
+		// custom login form page
 //		http
 //		.csrf(csrf -> csrf.disable())
 //		.authorizeHttpRequests(authorize -> authorize
@@ -49,22 +52,27 @@ public class SecurityConfig {
 //				.authenticated())
 //		.formLogin(form -> form.loginPage("/signin").loginProcessingUrl("/doLogin").defaultSuccessUrl("/users/"));
 		
+		
 		http
-		.csrf(csrf -> csrf.disable())
-		.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/signin").permitAll()
-				.requestMatchers("/public/**").permitAll()
-				.requestMatchers("/users/**").hasRole("ADMIN")
-				.anyRequest()
-				.authenticated())
-		.formLogin(form -> form
-		        .loginPage("/signin") // Optional: If you have a custom login page
-		        .defaultSuccessUrl("/users/", true).permitAll());
+	    .csrf(csrf -> csrf.disable())
+	    .authorizeHttpRequests(authorize -> authorize
+	        .requestMatchers("/signin").permitAll()
+	        .requestMatchers("/public/**").permitAll()
+	        .requestMatchers("/users/**").hasRole("ADMIN")
+	        .anyRequest().authenticated()
+	    )
+	    .formLogin(form -> form
+	    	    .loginPage("/signin") // your custom page
+	    	    .loginProcessingUrl("/login") // actual POST URL for processing
+	    	    .defaultSuccessUrl("/users/", true)
+	    	    .permitAll()
+	    	);
 		
 		
 		return http.build();
 	}
 	
+	// for InMemory details
 //	@Bean
 //	public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
 		
@@ -88,6 +96,7 @@ public class SecurityConfig {
 	    authProvider.setPasswordEncoder(passwordEncoder());     // BCrypt encoder
 	    return authProvider;
 	}
+
 	
 //	 @Bean
 //	  public PasswordEncoder passwordEncoder() {
@@ -96,7 +105,7 @@ public class SecurityConfig {
 	 
 	 @Bean
 	  public BCryptPasswordEncoder passwordEncoder() {  //used to persist password after encryption
-	        return new BCryptPasswordEncoder(10);
+	        return new BCryptPasswordEncoder();
 	  }
 	
 

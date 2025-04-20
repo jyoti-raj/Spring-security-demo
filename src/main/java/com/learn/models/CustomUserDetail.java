@@ -3,6 +3,7 @@ package com.learn.models;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetail implements UserDetails{
 	
+	@Autowired
 	private User user;
 
 	public CustomUserDetail(User user) {
@@ -34,7 +36,6 @@ public class CustomUserDetail implements UserDetails{
 		// TODO Auto-generated method stub
 		return this.user.getUserName();
 	}
-	
 	
 
 }

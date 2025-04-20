@@ -22,5 +22,10 @@ public class HomeController {
 	public String register() {
 		return "This is register page";
 	}
+	
+	@GetMapping("/doLogin")
+	public String loginProcessingPage() {
+		return "Checking credentials";
+	}
 
 }

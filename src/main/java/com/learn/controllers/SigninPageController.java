@@ -8,7 +8,7 @@ public class SigninPageController {
 	
 	@GetMapping("/signin")
 	public String signinPage() {
-		return "login.html";
+		return "login";
 	}
 
 }
